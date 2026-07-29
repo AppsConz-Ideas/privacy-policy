@@ -1,10 +1,596 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>AppsConz</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apps on the App Store &amp; Google Play</title>
+  <meta name="description" content="AppsConz builds useful mobile apps available on the App Store and Google Play. Browse our apps and get support.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14201c;
+      --muted: #4a5a54;
+      --paper: #eef3ef;
+      --panel: rgba(255, 255, 255, 0.72);
+      --line: rgba(20, 32, 28, 0.12);
+      --accent: #0f6b4c;
+      --accent-deep: #0a4a35;
+      --glow: #9fd9b8;
+      --device: #1a2a24;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Instrument Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 55% at 12% -10%, rgba(159, 217, 184, 0.55), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 0%, rgba(15, 107, 76, 0.18), transparent 50%),
+        linear-gradient(165deg, #f7faf8 0%, var(--paper) 45%, #e3ebe6 100%);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 0 0;
+      animation: rise 0.6s ease both;
+    }
+
+    .brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: var(--ink);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.5rem;
+      align-items: end;
+      min-height: calc(100svh - 4.5rem);
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .hero-copy {
+      padding-bottom: 1.5rem;
+      animation: rise 0.75s ease 0.05s both;
+    }
+
+    .hero-brand {
+      display: block;
+      font-size: clamp(3.2rem, 9vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      margin: 0 0 1.25rem;
+    }
+
+    .hero-brand span {
+      color: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(1.55rem, 3.4vw, 2.15rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin: 0 0 0.85rem;
+      max-width: 16ch;
+    }
+
+    .hero p {
+      margin: 0 0 1.75rem;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 28rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.85rem 1.2rem;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      animation: rise 0.9s ease 0.12s both;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 8% 6% 0;
+      background:
+        linear-gradient(145deg, rgba(15, 107, 76, 0.22), transparent 55%),
+        radial-gradient(circle at 70% 20%, rgba(159, 217, 184, 0.7), transparent 45%);
+      filter: blur(2px);
+    }
+
+    .phones {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone {
+      position: absolute;
+      width: min(220px, 42vw);
+      aspect-ratio: 9 / 19;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 35%),
+        var(--device);
+      box-shadow: 0 28px 50px rgba(20, 32, 28, 0.22);
+      overflow: hidden;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      width: 34%;
+      height: 8px;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 28px 12px 12px;
+      background:
+        linear-gradient(160deg, #1f4336 0%, #0d241c 55%, #16352a 100%);
+      padding: 1rem 0.85rem;
+      color: #d7ebe1;
+    }
+
+    .phone-screen strong {
+      display: block;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .phone-screen p {
+      margin: 0;
+      font-size: 0.72rem;
+      color: rgba(215, 235, 225, 0.72);
+      line-height: 1.4;
+    }
+
+    .bars {
+      display: grid;
+      gap: 0.45rem;
+      margin-top: 1.1rem;
+    }
+
+    .bars span {
+      display: block;
+      height: 8px;
+      background: rgba(159, 217, 184, 0.28);
+    }
+
+    .bars span:nth-child(1) { width: 88%; }
+    .bars span:nth-child(2) { width: 64%; }
+    .bars span:nth-child(3) { width: 76%; }
+    .bars span:nth-child(4) { width: 52%; }
+
+    .phone-ios {
+      left: 8%;
+      bottom: 6%;
+      transform: rotate(-8deg);
+      animation: float 5.5s ease-in-out infinite;
+    }
+
+    .phone-android {
+      right: 6%;
+      top: 4%;
+      transform: rotate(7deg);
+      animation: float 6.2s ease-in-out 0.4s infinite;
+    }
+
+    .phone-android .phone-screen {
+      background:
+        linear-gradient(160deg, #245544 0%, #123328 55%, #1a4032 100%);
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    .section-head {
+      max-width: 36rem;
+      margin-bottom: 2rem;
+      animation: rise 0.7s ease both;
+    }
+
+    .section-head h2 {
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.35rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.6rem;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .app-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .app-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--line);
+      animation: rise 0.75s ease both;
+    }
+
+    .app-row:nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    .app-name {
+      margin: 0 0 0.25rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .app-blurb {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .platforms {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .download-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: flex-end;
+    }
+
+    .store-link,
+    .store-link-soon {
+      display: inline-flex;
+      align-items: center;
+      min-width: 7.5rem;
+      justify-content: center;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .store-link {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .store-link:hover {
+      border-color: var(--accent);
+      background: rgba(159, 217, 184, 0.18);
+    }
+
+    .store-link-soon {
+      color: var(--muted);
+      background: transparent;
+      cursor: default;
+    }
+
+    .platforms-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .platforms-strip h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .platforms-strip p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem 1.5rem;
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent-deep);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    footer a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+      50% { transform: translateY(-10px) rotate(var(--tilt, 0deg)); }
+    }
+
+    .phone-ios { --tilt: -8deg; }
+    .phone-android { --tilt: 7deg; }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 1.5rem;
+        padding-top: 2rem;
+      }
+
+      .hero-visual {
+        min-height: 340px;
+        order: -1;
+      }
+
+      .app-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .download-links {
+        justify-content: flex-start;
+      }
+
+      .platforms-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      header,
+      .hero-copy,
+      .hero-visual,
+      .section-head,
+      .app-row,
+      .phone-ios,
+      .phone-android,
+      .btn {
+        animation: none;
+        transition: none;
+      }
+
+      .btn-primary:hover,
+      .btn-secondary:hover {
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to AppsConz</h1>
-  <p>Website for mobile app development</p>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="index.html">Apps<span>Conz</span></a>
+      <nav aria-label="Primary">
+        <a href="#apps">Apps</a>
+        <a href="support/index.html">Support</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-copy">
+        <p class="hero-brand" aria-hidden="true">Apps<span>Conz</span></p>
+        <h1>Apps for the App Store and Google Play.</h1>
+        <p>
+          We design and build practical apps you can download from the
+          App Store and the Android store on Google Play.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#apps">See our apps</a>
+          <a class="btn btn-secondary" href="support/index.html">Get support</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phones">
+          <div class="phone phone-ios">
+            <div class="phone-screen">
+              <strong>App Store</strong>
+              <p>Available on the App Store.</p>
+              <div class="bars">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="phone phone-android">
+            <div class="phone-screen">
+              <strong>Google Play</strong>
+              <p>Available on the Android store via Google Play.</p>
+              <div class="bars">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apps" aria-labelledby="apps-heading">
+      <div class="section-head">
+        <h2 id="apps-heading">Our apps</h2>
+        <p>
+          Download links for the App Store and Google Play will appear here as
+          each app ships. Focus Eye is first — more are on the way.
+        </p>
+      </div>
+
+      <div class="app-list">
+        <article class="app-row">
+          <div>
+            <h3 class="app-name">Focus Eye</h3>
+            <p class="app-blurb">
+              Helps you stay focused and improve your alertness.
+            </p>
+          </div>
+          <p class="platforms">App Store · Google Play</p>
+          <div class="download-links">
+            <!-- Replace these with live store URLs when available -->
+            <span class="store-link-soon" aria-label="App Store link coming soon">App Store — soon</span>
+            <span class="store-link-soon" aria-label="Google Play link coming soon">Google Play — soon</span>
+          </div>
+        </article>
+
+        <!--
+          Add more apps like this:
+          <article class="app-row">
+            <div>
+              <h3 class="app-name">App Name</h3>
+              <p class="app-blurb">Short description.</p>
+            </div>
+            <p class="platforms">App Store · Google Play</p>
+            <div class="download-links">
+              <a class="store-link" href="https://apps.apple.com/...">App Store</a>
+              <a class="store-link" href="https://play.google.com/...">Google Play</a>
+            </div>
+          </article>
+        -->
+      </div>
+
+      <div class="platforms-strip">
+        <div>
+          <h3>App Store</h3>
+          <p>Our apps are published on the App Store for iPhone and iPad.</p>
+        </div>
+        <div>
+          <h3>Google Play</h3>
+          <p>The same apps are available on the Android store through Google Play.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© AppsConz — App Store &amp; Google Play</p>
+      <p><a href="support/index.html">Support</a> · <a href="mailto:support@appsconz.ca">support@appsconz.ca</a></p>
+    </footer>
+  </div>
 </body>
 </html>

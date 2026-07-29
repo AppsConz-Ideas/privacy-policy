@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support — AppsConz</title>
+  <meta name="description" content="Contact AppsConz support for help with Focus Eye and our other apps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14201c;
+      --muted: #4a5a54;
+      --paper: #eef3ef;
+      --panel: rgba(255, 255, 255, 0.72);
+      --line: rgba(20, 32, 28, 0.12);
+      --accent: #0f6b4c;
+      --accent-deep: #0a4a35;
+      --glow: #9fd9b8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Instrument Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 55% at 12% -10%, rgba(159, 217, 184, 0.55), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 0%, rgba(15, 107, 76, 0.18), transparent 50%),
+        linear-gradient(165deg, #f7faf8 0%, var(--paper) 45%, #e3ebe6 100%);
+      line-height: 1.5;
+    }
+
+    .page {
+      width: min(640px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.25rem 0 4.5rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      animation: rise 0.6s ease both;
+    }
+
+    .brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: var(--ink);
+    }
+
+    h1 {
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(2.1rem, 5vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0 0 0.75rem;
+    }
+
+    .lede {
+      margin: 0 0 2rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 34rem;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+      animation: rise 0.7s ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    label {
+      display: grid;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .optional {
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 0.75rem 0.85rem;
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 107, 76, 0.15);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .mailto {
+      color: var(--accent-deep);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .mailto:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .note {
+      margin: 1.25rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      animation: rise 0.9s ease 0.15s both;
+    }
+
+    footer a {
+      color: var(--accent-deep);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      header,
+      form,
+      footer,
+      button {
+        animation: none;
+        transition: none;
+      }
+
+      button:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <a class="brand" href="../index.html">Apps<span>Conz</span></a>
+      <nav aria-label="Primary">
+        <a href="../index.html#apps">Apps</a>
+        <a href="index.html" aria-current="page">Support</a>
+      </nav>
+    </header>
+    <h1>Contact us</h1>
+    <p class="lede">
+      Need help with one of our apps? Send a message and we’ll get back to you
+      as soon as we can.
+    </p>
+
+    <form id="support-form" novalidate>
+      <label>
+        Name
+        <input type="text" name="name" autocomplete="name" required>
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+
+      <label>
+        App <span class="optional">(optional)</span>
+        <select name="app">
+          <option value="">General</option>
+          <option value="Focus Eye" selected>Focus Eye</option>
+        </select>
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" required placeholder="Describe the issue or question…"></textarea>
+      </label>
+
+      <div class="actions">
+        <button type="submit">Send message</button>
+        <a class="mailto" href="mailto:support@appsconz.ca">or email support@appsconz.ca</a>
+      </div>
+    </form>
+
+    <p class="note">
+      Your message opens in your email app, addressed to
+      <a class="mailto" href="mailto:support@appsconz.ca">support@appsconz.ca</a>,
+      with the selected app in the subject line.
+    </p>
+
+    <footer>© AppsConz · <a href="../index.html">Home</a></footer>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById("support-form");
+      if (!form) return;
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var data = new FormData(form);
+        var name = String(data.get("name") || "").trim();
+        var email = String(data.get("email") || "").trim();
+        var app = String(data.get("app") || "").trim();
+        var message = String(data.get("message") || "").trim();
+
+        if (!name || !email || !message) {
+          form.reportValidity();
+          return;
+        }
+
+        var label = app || "General";
+        var subject = "[AppsConz Support] " + label;
+        var body =
+          "Name: " + name + "\n" +
+          "Email: " + email + "\n" +
+          "App: " + label + "\n\n" +
+          message;
+
+        window.location.href =
+          "mailto:support@appsconz.ca" +
+          "?subject=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(body);
+      });
+    })();
+  </script>
+</body>
+</html>
